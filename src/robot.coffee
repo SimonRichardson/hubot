@@ -76,6 +76,16 @@ class Robot
   hear: (regex, callback) ->
     @listeners.push new TextListener(@, regex, callback)
 
+  # Public: Removes a Listener that attempts to match incoming messages based on
+  # a Regex.
+  #
+  # regex    - A Regex that determines if the callback should be called.
+  #
+  # Returns nothing.
+  unhear: (regex, callback) ->
+    @listeners = @listeners.filter (listener) ->
+      listener.regexp isnt regexp and listener.callback isnt callback
+
   # Public: Adds a Listener that attempts to match incoming messages directed
   # at the robot based on a Regex. All regexes treat patterns like they begin
   # with a '^'
